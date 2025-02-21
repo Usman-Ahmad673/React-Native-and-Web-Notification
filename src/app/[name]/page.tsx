@@ -3,19 +3,8 @@ import { notFound } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
 import AccountActions from "@/components/AccountActions";
 
-// Explicitly define params
-interface Props {
-  params: { name: string };
-}
-
-export async function generateMetadata({ params }: { params: { name: string } }): Promise<Metadata> {
-  if (!params?.name) {
-    return { title: "Page Not Found" };
-  }
-
-  return {
-    title: `Page for ${params.name}`,
-  };
+interface PageParams {
+  name: string;
 }
 
 async function getAccount(name: string) {
@@ -24,12 +13,31 @@ async function getAccount(name: string) {
   return db.collection("accounts").findOne({ name });
 }
 
-export default async function AccountPage({ params }: { params: { name: string } }) {
-  if (!params?.name) {
+export async function generateMetadata(
+  { params }: { params: Promise<PageParams> }
+): Promise<Metadata> {
+  const resolvedParams = await params;
+  if (!resolvedParams?.name) {
+    return { title: "Page Not Found" };
+  }
+  return {
+    title: `Page for ${resolvedParams.name}`,
+  };
+}
+
+export default async function AccountPage({
+  params
+}: {
+  params: Promise<PageParams>;
+}) {
+  const resolvedParams = await params;
+  const name = resolvedParams.name;
+
+  if (!name) {
     notFound();
   }
 
-  const account = await getAccount(params.name);
+  const account = await getAccount(name);
 
   if (!account) {
     notFound();
