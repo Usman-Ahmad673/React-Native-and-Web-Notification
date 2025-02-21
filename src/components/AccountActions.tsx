@@ -8,7 +8,6 @@ interface AccountActionsProps {
   name: string;
   accountId: string;
 }
-const domain = process.env.NEXT_PUBLIC_APP_DOMAIN || "https://brokage.vercel.app";
 
 const AccountActions: React.FC<AccountActionsProps> = ({ name, accountId }) => {
   const { deepLink, webLink } = generateDeepLink(name);
