@@ -2,20 +2,19 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
 import AccountActions from "@/components/AccountActions";
+import { PageProps } from "next/dist/shared/lib/app-router-context.shared-runtime"; // Import Next.js PageProps type
 
-interface Props {
-  params: { name?: string };
+interface Props extends PageProps { // Ensure it extends PageProps
+  params: { name: string }; // Make `name` required to avoid optional type issues
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { name } = params || {}; // Ensure params exist before accessing properties
-
-  if (!name) {
+  if (!params?.name) {
     return { title: "Page Not Found" };
   }
 
   return {
-    title: `Page for ${name}`,
+    title: `Page for ${params.name}`,
   };
 }
 
@@ -26,12 +25,11 @@ async function getAccount(name: string) {
 }
 
 export default async function AccountPage({ params }: Props) {
-  if (!params || !params.name) {
+  if (!params?.name) {
     notFound();
   }
 
-  const { name } = params; // Extract name safely
-  const account = await getAccount(name);
+  const account = await getAccount(params.name);
 
   if (!account) {
     notFound();
