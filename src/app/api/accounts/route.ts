@@ -11,6 +11,7 @@ export async function GET() {
 
     return NextResponse.json({ success: true, data: accounts });
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { success: false, error: "Internal Server Error" },
       { status: 500 }
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true, data: newAccount });
   } catch (error) {
+        console.log(error)
     return NextResponse.json(
       { success: false, error: "Internal Server Error" },
       { status: 500 }
