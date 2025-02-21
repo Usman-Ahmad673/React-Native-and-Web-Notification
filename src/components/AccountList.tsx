@@ -10,11 +10,15 @@ interface AccountListProps {
 
 export default function AccountList({ accounts }: AccountListProps) {
   const copyDeepLink = (name: string) => {
-const { deepLink } = generateDeepLink(name);
-    navigator.clipboard.writeText(deepLink);
-    alert('Deep link copied to clipboard!');
-  };
+const { deepLink, webLink } = generateDeepLink(name);
 
+    window.location.href = deepLink;
+
+    setTimeout(() => {
+      window.location.href = webLink;
+    }, 2000);
+  };
+  
   return (
     <div className="space-y-4">
       {accounts && accounts.map((account) => (
