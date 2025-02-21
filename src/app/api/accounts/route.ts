@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
-import { IAccount, AccountWithId } from "@/app/models/account";
+import { IAccount } from "@/app/models/account";
 
 export async function GET() {
   try {

@@ -33,6 +33,7 @@ export default function AccountForm({ onAccountCreated }: AccountFormProps) {
         setError(data.error);
       }
     } catch (err) {
+      console.log(err)
       setError("Failed to create account");
     } finally {
       setIsLoading(false);

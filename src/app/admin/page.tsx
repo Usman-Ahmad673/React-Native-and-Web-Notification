@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import AccountForm from '@/components/AccountForm';
 import AccountList from '@/components/AccountList';
 import { AccountWithId } from '../models/account';
-// import { AccountWithId } from '@/app/models/account';
 
 export default function AdminDashboardClient() {
   const [accounts, setAccounts] = useState<AccountWithId[]>([]);

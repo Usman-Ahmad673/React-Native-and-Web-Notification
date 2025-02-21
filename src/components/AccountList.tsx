@@ -29,12 +29,12 @@ const { deepLink } = generateDeepLink(name);
             >
               View Page
             </a>
-            {/* <button
+            <button
               onClick={() => copyDeepLink(account.name)}
               className="text-green-500 hover:underline"
             >
               Copy Share Link
-            </button> */}
+            </button>
           </div>
         </div>
       ))}
