@@ -3,11 +3,12 @@ import { notFound } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
 import AccountActions from "@/components/AccountActions";
 
+// Explicitly define params
 interface Props {
-  params: { name: string }; // Ensure `name` is always a string
+  params: { name: string };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { name: string } }): Promise<Metadata> {
   if (!params?.name) {
     return { title: "Page Not Found" };
   }
@@ -23,7 +24,7 @@ async function getAccount(name: string) {
   return db.collection("accounts").findOne({ name });
 }
 
-export default async function AccountPage({ params }: Props) {
+export default async function AccountPage({ params }: { params: { name: string } }) {
   if (!params?.name) {
     notFound();
   }
