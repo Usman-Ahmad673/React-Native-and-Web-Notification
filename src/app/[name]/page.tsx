@@ -2,10 +2,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
 import AccountActions from "@/components/AccountActions";
-import { PageProps } from "next/dist/shared/lib/app-router-context.shared-runtime"; // Import Next.js PageProps type
 
-interface Props extends PageProps { // Ensure it extends PageProps
-  params: { name: string }; // Make `name` required to avoid optional type issues
+interface Props {
+  params: { name: string }; // Ensure `name` is always a string
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
